@@ -1,0 +1,48 @@
+# 依赖
+node_modules/
+.pnpm-store/
+.npm-cache/
+
+# 构建产物
+dist/
+release/
+out/
+*.tsbuildinfo
+
+# 图标为脚本生成物（scripts/make_icon.py 从单份几何数据渲染）
+build/
+electron/assets/*.png
+electron/assets/*.ico
+
+# 本地产物 / 归档（不入库）
+_archive/
+_facework/
+_bundle_*.txt
+_css_pretty.txt
+*.log
+npm-debug.log*
+
+# 美术素材与名册：见 README「素材说明」，属第三方作品资产，不随仓库分发
+public/portraits/*
+!public/portraits/.gitkeep
+src/data/operators.local.json
+
+# 预览图由脚本生成且会截入立绘，本地保留、不入库
+preview/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 环境
+.env
+.env.local
+
+# Python 字节码
+__pycache__/
+*.pyc
+
+# 本地开发记录
+.workbuddy/

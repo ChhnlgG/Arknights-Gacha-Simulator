@@ -1,0 +1,35 @@
+[
+ {
+  "id": "demo-vanguard",
+  "name": "示例先锋",
+  "rarity": 6,
+  "profession": "先锋",
+  "pool": "standard",
+  "description": "占位干员。把本文件复制为 operators.local.json 后替换为你的数据。"
+ },
+ {
+  "id": "demo-sniper",
+  "name": "示例狙击",
+  "rarity": 5,
+  "profession": "狙击",
+  "pool": "standard",
+  "description": "占位干员。rarity 取 3/4/5/6；profession 取 先锋/近卫/重装/狙击/术师/医疗/辅助/特种。"
+ },
+ {
+  "id": "demo-caster",
+  "name": "示例术师",
+  "rarity": 4,
+  "profession": "术师",
+  "pool": "jianzhong",
+  "description": "pool 取 jianzhong/standard/limited，省略则视为通用。"
+ },
+ {
+  "id": "demo-medic",
+  "name": "示例医疗",
+  "rarity": 3,
+  "profession": "医疗",
+  "pool": "jianzhong",
+  "isLimited": false,
+  "description": "isLimited 为 true 时卡面显示「限定」角标。"
+ }
+]

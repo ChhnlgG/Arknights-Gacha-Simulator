@@ -1,0 +1,781 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   字体：本地内置（子集化 woff2），保证离线 / 无网络环境下的排版一致
+   ============================================================ */
+@font-face {
+  font-family: 'Ark Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/noto-sans-sc-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Ark Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/fonts/noto-sans-sc-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Ark Sans';
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url('./assets/fonts/noto-sans-sc-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Ark Serif';
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  src: url('./assets/fonts/noto-serif-sc-700.woff2') format('woff2');
+}
+
+/* ============================================================
+   基础层
+   ============================================================ */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html,
+body {
+  background: #111110;
+  color: #e7e5df;
+  font-family: 'Ark Sans', 'Noto Sans SC', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  font-feature-settings: 'ss01', 'ss02';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  background-color: #111110;
+  background-image: radial-gradient(circle at 18% 100%, rgba(207, 134, 24, 0.045), transparent 55%),
+    radial-gradient(circle at 86% 6%, rgba(90, 143, 124, 0.04), transparent 52%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 3px);
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Ark Serif', 'Noto Serif SC', 'Songti SC', SimSun, serif;
+  font-weight: 700;
+  color: #f1ede2;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: rgba(232, 166, 58, 0.28);
+  color: #fff5e3;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #29292d;
+  border-radius: 2px;
+  border: 3px solid #111110;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3f;
+}
+
+/* ============================================================
+   通用组件
+   ============================================================ */
+.btn-primary {
+  background: #cf8618;
+  color: #1a1103;
+  border-radius: 4px;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  padding: 14px 24px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.28), inset 0 -1px rgba(0, 0, 0, 0.25),
+    0 14px 34px -10px rgba(167, 102, 16, 0.72), 0 6px 14px -8px rgba(0, 0, 0, 0.45);
+  transition: background-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  background: #d9921e;
+}
+.btn-primary:active:not(:disabled) {
+  background: #b97310;
+  transform: scale(0.982);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35), 0 6px 14px -10px rgba(167, 102, 16, 0.45);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.55);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.028);
+  color: #cfcbc2;
+  border: 1px solid rgba(150, 145, 136, 0.46);
+  border-radius: 4px;
+  padding: 10px 16px;
+  letter-spacing: 0.1em;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.btn-ghost:hover:not(:disabled) {
+  color: #fbf8f1;
+  border-color: rgba(196, 190, 180, 0.7);
+  background: rgba(255, 255, 255, 0.055);
+}
+.btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-link {
+  background: none;
+  border: 0;
+  color: #8e8a81;
+  letter-spacing: 0.12em;
+  padding: 0;
+  border-bottom: 1px solid transparent;
+  transition: color 90ms ease, border-color 90ms ease;
+}
+.btn-link:hover {
+  color: #e8a63a;
+  border-bottom-color: rgba(232, 166, 58, 0.4);
+}
+
+.rarity-stars {
+  color: #e8a63a;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  line-height: 1;
+}
+.rarity-plum {
+  color: #c9b0e0;
+}
+.rarity-slate {
+  color: #a09d96;
+}
+
+.tag {
+  border-radius: 2px;
+  padding: 2px 7px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.5;
+}
+.tag-ember {
+  background: rgba(207, 134, 24, 0.12);
+  border-color: rgba(207, 134, 24, 0.34);
+  color: #f6c56b;
+}
+.tag-pine {
+  background: rgba(90, 143, 124, 0.1);
+  border-color: rgba(90, 143, 124, 0.32);
+  color: #9cc5b5;
+}
+.tag-plum {
+  background: rgba(156, 130, 184, 0.1);
+  border-color: rgba(156, 130, 184, 0.3);
+  color: #c9b0e0;
+}
+.tag-dust {
+  background: rgba(119, 116, 110, 0.1);
+  border-color: rgba(119, 116, 110, 0.28);
+  color: #b9b4aa;
+}
+
+.banner-current {
+  position: relative;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #1f1f22;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.03), inset 0 -1px rgba(0, 0, 0, 0.35),
+    0 20px 46px -26px rgba(0, 0, 0, 0.82);
+}
+
+.chip-orundum {
+  background: linear-gradient(180deg, #1e1a13, #171310);
+  border: 1px solid rgba(207, 134, 24, 0.22);
+  border-radius: 6px;
+  box-shadow: inset 0 1px rgba(255, 232, 180, 0.05), 0 10px 22px -18px rgba(207, 134, 24, 0.55);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+.metal-border {
+  border: 1px solid rgba(232, 166, 58, 0.32);
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(58, 40, 12, 0.55), rgba(20, 16, 10, 0.72));
+  box-shadow: inset 0 1px rgba(255, 232, 180, 0.06), 0 12px 30px -20px rgba(0, 0, 0, 0.9);
+}
+
+.num-display {
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+}
+
+.shine-text {
+  background: linear-gradient(90deg, #cf8618 0%, #fff5e3 45%, #ffe0a8 55%, #cf8618 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: ak-shine-text 3.5s linear infinite;
+}
+
+.portal-bg {
+  background-image: radial-gradient(circle at 50% 50%, rgba(232, 166, 58, 0.16), transparent 62%),
+    repeating-conic-gradient(from 0deg at 50% 50%, rgba(232, 166, 58, 0.1) 0deg 2deg, transparent 2deg 12deg);
+}
+
+/* ============================================================
+   干员卡（六星 / 五星 背景与光效）
+   ============================================================ */
+.ak-op-card {
+  position: relative;
+  display: block;
+  width: var(--ak-w, 112px);
+  border: 0;
+  padding: 0;
+  background: none;
+  text-align: left;
+  cursor: default;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+.ak-op-card[data-clickable='true'] {
+  cursor: pointer;
+}
+
+/* 外发光 */
+.ak-op-card__aura {
+  position: absolute;
+  inset: -10px;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.35s ease;
+  z-index: 0;
+}
+
+.ak-op-card__frame {
+  position: relative;
+  padding: 2px;
+  border-radius: 11px;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.ak-op-card__inner {
+  position: relative;
+  border-radius: 9px;
+  overflow: hidden;
+  height: 100%;
+  background: linear-gradient(160deg, var(--ak-base), var(--ak-base2));
+}
+
+/* ---------- 六星：旋转虹光边框 + holo 镭射面 ---------- */
+.ak-op-card--6 .ak-op-card__frame {
+  padding: 2.5px;
+  box-shadow: 0 0 0 1px rgba(255, 214, 245, 0.42), 0 10px 26px -12px rgba(0, 0, 0, 0.95);
+}
+.ak-op-card--6 .ak-op-card__frame::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 230%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff5a8f,
+    #ffb347,
+    #ffe066,
+    #6be589,
+    #4fc3f7,
+    #b388ff,
+    #ff5a8f
+  );
+  animation: ak-holo-spin 7s linear infinite;
+}
+.ak-op-card--6 .ak-op-card__inner {
+  box-shadow: inset 0 0 0 1px rgba(255, 236, 254, 0.22), inset 0 0 26px rgba(255, 170, 245, 0.16);
+}
+.ak-op-card--6 .ak-op-card__foil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+  background: conic-gradient(
+    from 210deg at 50% 42%,
+    rgba(255, 90, 143, 0.28),
+    rgba(255, 179, 71, 0.24),
+    rgba(255, 224, 102, 0.2),
+    rgba(107, 229, 137, 0.2),
+    rgba(79, 195, 247, 0.24),
+    rgba(179, 136, 255, 0.28),
+    rgba(255, 90, 143, 0.28)
+  );
+}
+.ak-op-card--6 .ak-op-card__aura {
+  opacity: 0.6;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 170, 245, 0.6), transparent 70%);
+  animation: ak-aura-pulse 4.2s ease-in-out infinite;
+}
+
+/* ---------- 五星：暖金金属边框 + 呼吸光 ---------- */
+.ak-op-card--5 .ak-op-card__frame {
+  background: linear-gradient(148deg, #fff2cd 0%, #e9b24c 24%, #8a5510 48%, #f4c76d 70%, #b47a1e 100%);
+  animation: ak-breathe 3.6s ease-in-out infinite;
+}
+.ak-op-card--5 .ak-op-card__inner {
+  box-shadow: inset 0 0 0 1px rgba(255, 214, 140, 0.26), inset 0 0 22px rgba(232, 166, 58, 0.14);
+}
+.ak-op-card--5 .ak-op-card__aura {
+  opacity: 0.36;
+  background: radial-gradient(circle at 50% 55%, rgba(255, 186, 84, 0.62), transparent 72%);
+  animation: ak-aura-pulse 4.6s ease-in-out infinite;
+}
+
+/* ---------- 四星 / 三星 ---------- */
+.ak-op-card--4 .ak-op-card__frame {
+  background: linear-gradient(150deg, #d3aef0 0%, #8a5fb8 42%, #3a2354 100%);
+  box-shadow: 0 0 0 1px rgba(199, 155, 232, 0.22);
+}
+.ak-op-card--3 .ak-op-card__frame {
+  background: linear-gradient(150deg, #9aa1ad 0%, #5a5f68 45%, #2a2d33 100%);
+  box-shadow: 0 0 0 1px rgba(154, 161, 173, 0.16);
+}
+
+/* ---------- 立绘 ---------- */
+.ak-op-card__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 16%;
+  transform: scale(1.01);
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+.ak-op-card[data-clickable='true']:hover .ak-op-card__art {
+  transform: scale(1.07);
+}
+.ak-op-card--6 .ak-op-card__art {
+  filter: saturate(1.16) contrast(1.08) brightness(1.14);
+}
+.ak-op-card--5 .ak-op-card__art {
+  filter: saturate(1.1) contrast(1.05) brightness(1.1);
+}
+.ak-op-card--4 .ak-op-card__art,
+.ak-op-card--3 .ak-op-card__art {
+  filter: brightness(1.06);
+}
+
+.ak-op-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(4, 3, 6, 0.96) 0%,
+    rgba(4, 3, 6, 0.82) 13%,
+    rgba(4, 3, 6, 0.4) 24%,
+    rgba(4, 3, 6, 0) 40%
+  );
+  pointer-events: none;
+}
+.ak-op-card__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(120% 85% at 50% 10%, transparent 46%, rgba(0, 0, 0, 0.42) 100%);
+}
+.ak-op-card__gloss {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 42%);
+}
+
+/* ---------- 扫光 / 星屑 ---------- */
+.ak-op-card__sheen {
+  position: absolute;
+  inset: -20%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.14) 46%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.12) 54%,
+    transparent 62%
+  );
+  transform: translateX(-130%);
+  mix-blend-mode: screen;
+}
+.ak-op-card--6 .ak-op-card__sheen {
+  animation: ak-sheen 5.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.ak-op-card--5 .ak-op-card__sheen {
+  animation: ak-sheen 7.4s cubic-bezier(0.4, 0, 0.2, 1) 1.2s infinite;
+}
+
+.ak-op-card__sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ak-op-card__sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff4d0;
+  box-shadow: 0 0 6px 1px rgba(255, 226, 160, 0.9);
+  opacity: 0;
+  animation: ak-twinkle 3.4s ease-in-out infinite;
+}
+.ak-op-card--6 .ak-op-card__sparkle {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(255, 190, 250, 0.9);
+}
+
+/* ---------- 角花（五 / 六星） ---------- */
+.ak-op-card__corner {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  z-index: 4;
+  pointer-events: none;
+  border-color: rgba(255, 238, 200, 0.72);
+}
+.ak-op-card__corner--tl { top: 4px; left: 4px; border-top-width: 1px; border-left-width: 1px; border-style: solid; }
+.ak-op-card__corner--tr { top: 4px; right: 4px; border-top-width: 1px; border-right-width: 1px; border-style: solid; }
+.ak-op-card__corner--bl { bottom: 4px; left: 4px; border-bottom-width: 1px; border-left-width: 1px; border-style: solid; }
+.ak-op-card__corner--br { bottom: 4px; right: 4px; border-bottom-width: 1px; border-right-width: 1px; border-style: solid; }
+.ak-op-card--6 .ak-op-card__corner { border-color: rgba(255, 226, 250, 0.85); }
+
+/* ---------- 信息条 ---------- */
+.ak-op-card__meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  padding: 5px 7px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ak-op-card--6 .ak-op-card__meta,
+.ak-op-card--5 .ak-op-card__meta {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+}
+.ak-op-card__name {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  color: #fffaf0;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 14px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ak-op-card--6 .ak-op-card__name {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 190, 250, 0.55), 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+.ak-op-card--5 .ak-op-card__name {
+  text-shadow: 0 0 10px rgba(255, 200, 110, 0.45), 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+.ak-op-card__stars {
+  letter-spacing: 0.02em;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
+}
+.ak-op-card--6 .ak-op-card__stars {
+  filter: drop-shadow(0 0 6px rgba(255, 196, 120, 0.75));
+}
+.ak-op-card__sub {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  color: rgba(231, 229, 223, 0.62);
+  line-height: 1;
+}
+
+/* ---------- 角标 ---------- */
+.ak-op-card__badge {
+  position: absolute;
+  z-index: 6;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 2px;
+  backdrop-filter: blur(2px);
+}
+.ak-op-card__badge--up {
+  top: 4px;
+  right: 4px;
+  color: #fff;
+  background: linear-gradient(180deg, #f43f5e, #b91c1c);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
+}
+.ak-op-card__badge--limited {
+  top: 4px;
+  left: 4px;
+  color: #1a1103;
+  background: linear-gradient(180deg, #ffd97a, #e0a33a);
+  box-shadow: 0 0 10px rgba(232, 166, 58, 0.5);
+}
+.ak-op-card__badge--custom {
+  top: 4px;
+  left: 4px;
+  color: #dff3ff;
+  background: rgba(14, 165, 233, 0.85);
+}
+
+/* ---------- 交互 ---------- */
+.ak-op-card[data-clickable='true']:hover .ak-op-card__frame {
+  transform: translateY(-4px);
+}
+.ak-op-card[data-clickable='true']:hover .ak-op-card__aura {
+  opacity: 0.85;
+}
+.ak-op-card[data-selected='true'] .ak-op-card__frame {
+  box-shadow: 0 0 0 2px #e11d48, 0 0 24px rgba(225, 29, 72, 0.6) !important;
+}
+.ak-op-card[data-poolable='true'] .ak-op-card__frame {
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.85), 0 0 18px rgba(16, 185, 129, 0.35) !important;
+}
+
+/* 占位图（无立绘时） */
+.ak-op-card__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 6px;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.04em;
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+/* ============================================================
+   动画
+   ============================================================ */
+@keyframes cardFlip {
+  0% {
+    transform: perspective(1200px) rotateY(140deg) scale(0.78);
+    opacity: 0;
+  }
+  60% {
+    transform: perspective(1200px) rotateY(-12deg) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes ak-holo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ak-aura-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.04);
+  }
+}
+@keyframes ak-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(255, 214, 140, 0.35), 0 0 14px 1px rgba(232, 166, 58, 0.24),
+      0 8px 20px -10px rgba(0, 0, 0, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(255, 232, 180, 0.7), 0 0 26px 5px rgba(232, 166, 58, 0.44),
+      0 8px 22px -10px rgba(0, 0, 0, 0.9);
+  }
+}
+@keyframes ak-sheen {
+  0%,
+  62% {
+    transform: translateX(-130%);
+  }
+  86%,
+  100% {
+    transform: translateX(130%);
+  }
+}
+@keyframes ak-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  70% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+@keyframes ak-shine-text {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ak-op-card__sheen,
+  .ak-op-card__sparkle,
+  .ak-op-card--6 .ak-op-card__frame::before,
+  .ak-op-card__aura,
+  .ak-op-card--5 .ak-op-card__frame,
+  .shine-text {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   寻访动画（传送门 / 出货光效）
+   ============================================================ */
+@keyframes ak-portal-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes ak-portal-spin-rev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes ak-portal-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes ak-screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5px, 3px); }
+  20% { transform: translate(5px, -3px); }
+  30% { transform: translate(-4px, -4px); }
+  40% { transform: translate(4px, 4px); }
+  50% { transform: translate(-5px, 2px); }
+  60% { transform: translate(5px, -2px); }
+  70% { transform: translate(-3px, 4px); }
+  80% { transform: translate(3px, -4px); }
+  90% { transform: translate(-4px, 3px); }
+}
+@keyframes ak-particle-burst {
+  0% { transform: scale(0); opacity: 0.9; }
+  50% { opacity: 0.7; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+@keyframes ak-particle-fly {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: var(--end) scale(0); opacity: 0; }
+}
+@keyframes ak-particle-converge {
+  0% { transform: translate(var(--start-x), var(--start-y)) scale(0.3); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 0.8; }
+  100% { transform: translate(0, 0) scale(1.4); opacity: 0; }
+}
+@keyframes ak-light-pillar {
+  0% { transform: scaleY(0); opacity: 0; }
+  20% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+@keyframes ak-radial-ray {
+  0% { transform: rotate(var(--ray-angle)) scaleX(0); opacity: 0; }
+  30% { transform: rotate(var(--ray-angle)) scaleX(1); opacity: 1; }
+  100% { transform: rotate(var(--ray-angle)) scaleX(1.4); opacity: 0; }
+}
+@keyframes ak-rainbow-ring {
+  0% { transform: scale(0.4); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes ak-halo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.12); opacity: 0.85; }
+}
+@keyframes ak-spin-arc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes ak-corner-blink {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.4; }
+}
+
+.ak-portal-spin { animation: ak-portal-spin 4s linear infinite; }
+.ak-portal-spin-rev { animation: ak-portal-spin-rev 5s linear infinite; }
+.ak-portal-spin-slow { animation: ak-portal-spin 8s linear infinite; }
+.ak-screen-shake { animation: ak-screen-shake 0.4s ease-in-out; }
+.ak-portal-pulse { animation: ak-portal-pulse 2.4s ease-in-out infinite; }
+.ak-spin-arc { animation: ak-spin-arc 1s linear infinite; }
+.ak-corner-blink { animation: ak-corner-blink 1.6s ease-in-out infinite; }
+.ak-shine-text {
+  background: linear-gradient(90deg, #cf8618 0%, #fff5e3 45%, #ffe0a8 55%, #cf8618 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: ak-shine-text 3.5s linear infinite;
+}
